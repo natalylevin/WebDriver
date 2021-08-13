@@ -15,26 +15,26 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "c:\\chromedriver.exe");
         scanner = new Scanner(System.in);
-        System.out.println("please write yu userName");
+        System.out.println("please write you userName");
         String userName = scanner.next();
-        System.out.println("please write yu password");
+        System.out.println("please write you password");
         String password = scanner.next();
         WebDriver driver = new ChromeDriver();
-        driver.get("https://www.aac.ac.il/");
+        driver.get(Data.SITE_URL);
         driver.manage().window().maximize();
-        WebElement a = driver.findElement(By.cssSelector("a[href='https://portal.aac.ac.il']"));
-        a.click();
-        WebElement user = driver.findElement(By.cssSelector("input[name='Ecom_User_ID']"));
+        WebElement portal = driver.findElement(By.cssSelector(Data.PORTAL_URL));
+        portal.click();
+        WebElement user = driver.findElement(By.cssSelector(Data.USER_ID));
         user.sendKeys(userName);
-        WebElement pass = driver.findElement(By.cssSelector("input[name='Ecom_Password']"));
+        WebElement pass = driver.findElement(By.cssSelector(Data.PASSWORD));
         pass.sendKeys(password);
-        WebElement submit = driver.findElement(By.cssSelector("input[name='wp-submit']"));
+        WebElement submit = driver.findElement(By.cssSelector(Data.SUBMIT));
         submit.click();
-        WebElement url = driver.findElement(By.cssSelector("a[href='https://moodle.aac.ac.il/login/index.php']"));
+        WebElement url = driver.findElement(By.cssSelector(Data.LOGIN));
         url.click();
         WebDriverWait driverWait = new WebDriverWait(driver, 10);
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[class = 'aalink coursename']")));
-        List<WebElement> coursesNames = driver.findElements(By.cssSelector("a[class = 'aalink coursename']"));
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Data.COURSE_NAME)));
+        List<WebElement> coursesNames = driver.findElements(By.cssSelector(Data.COURSE_NAME));
         for (int i = 0; i < coursesNames.size(); i++) {
             System.out.println(i + 1 + ") " + trimWords(coursesNames.get(i)));
         }
@@ -42,12 +42,12 @@ public class Main {
         int choose = scanner.nextInt();
         WebElement course = coursesNames.get(choose - 1);
         course.click();
-        WebElement menu = driver.findElement(By.cssSelector("a[class='d-inline-block  dropdown-toggle icon-no-margin']"));
+        WebElement menu = driver.findElement(By.cssSelector(Data.MENU));
         menu.click();
-        WebElement logOut = driver.findElement(By.cssSelector("a[data-title='logout,moodle']"));
+        WebElement logOut = driver.findElement(By.cssSelector(Data.LOGOUT));
         logOut.click();
         Thread.sleep(3000);
-        WebElement moodleLogOUt = driver.findElement(By.cssSelector("a[href=\"https://portal.aac.ac.il/AGLogout\"]"));
+        WebElement moodleLogOUt = driver.findElement(By.cssSelector(Data.FINAL_LOGOUT));
         moodleLogOUt.click();
     }
 
