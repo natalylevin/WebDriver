@@ -13,7 +13,7 @@ public class Main {
     static Scanner scanner;
 
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "c:\\web\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "c:\\chromedriver.exe");
         scanner = new Scanner(System.in);
         System.out.println("please write yu userName");
         String userName = scanner.next();
@@ -46,7 +46,8 @@ public class Main {
         menu.click();
         WebElement logOut = driver.findElement(By.cssSelector("a[data-title='logout,moodle']"));
         logOut.click();
-        WebElement moodleLogOUt = driver.findElement(By.cssSelector("a[href='https://portal.aac.ac.il/AGLogout']"));
+        Thread.sleep(3000);
+        WebElement moodleLogOUt = driver.findElement(By.cssSelector("a[href=\"https://portal.aac.ac.il/AGLogout\"]"));
         moodleLogOUt.click();
     }
 
